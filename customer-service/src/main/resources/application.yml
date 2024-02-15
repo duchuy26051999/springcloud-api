@@ -1,0 +1,22 @@
+server:
+  port: 8083
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: tcsgdbmananger
+    url: jdbc:postgresql://192.168.2.133:15432/springcloud
+    password: Un1t3ch@123!
+  application:
+    name: customer-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: localhost
+
