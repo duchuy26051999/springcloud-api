@@ -7,7 +7,7 @@ spring:
     url: jdbc:postgresql://192.168.2.133:15432/springcloud
     password: Un1t3ch@123!
   application:
-    name: customer-service
+    name: CUSTOMER-SERVICE
   jpa:
     hibernate:
       ddl-auto: update
