@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtils {
-    private static String secretKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
+    private static final String secretKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
