@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/customer")
+@RequestMapping(value = "/customer")
 public class HomeController {
     @GetMapping(value = "/home")
     public String home() {
