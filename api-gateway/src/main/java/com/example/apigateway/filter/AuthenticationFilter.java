@@ -34,7 +34,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     authHeader = authHeader.substring(7);
                 }
                 try {
-                    jwtUtils.isTokenValid(authHeader, "huynd");
+                    jwtUtils.isTokenValid(authHeader);
                 } catch (Exception e) {
                     e.printStackTrace();
                     throw new RuntimeException("Invalid Access");
