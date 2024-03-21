@@ -14,6 +14,14 @@ import java.util.function.Function;
 public class JwtUtils {
     private static final String secretKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
 
+    public String extractUsername(String token) {
+        try {
+            return extractClaim(token, Claims::getSubject);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);

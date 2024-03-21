@@ -2,10 +2,7 @@ package com.example.authservice.controller;
 
 import com.example.authservice.dto.AuthenticationRequest;
 import com.example.authservice.service.impl.AuthenticationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -22,5 +19,10 @@ public class LoinController {
     @PostMapping(value = "/singin")
     public Map<String, Object> singIn(@RequestBody AuthenticationRequest request) {
         return authenticationService.authenticate(request);
+    }
+
+    @GetMapping(value = "/validate")
+    public boolean validateToken(@RequestParam String token) {
+        return authenticationService.validateToken(token);
     }
 }

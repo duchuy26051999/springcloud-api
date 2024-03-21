@@ -47,6 +47,10 @@ public class AuthenticationService {
         }
     }
 
+    public boolean validateToken(String toke) {
+        return tokenRepository.findByToken(toke).map(t -> !t.isExpired() && !t.isRevoked()).orElse(false);
+    }
+
     private void addToMap(Map<String, Object> map) {
         map.put("msg", "Đăng nhập thất bại");
         map.put("status", false);
