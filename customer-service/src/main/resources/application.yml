@@ -22,4 +22,7 @@ eureka:
     register-with-eureka: true
   instance:
     hostname: localhost
+domain:
+  name:
+    ip: http://localhost:3000/
 
