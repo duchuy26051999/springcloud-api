@@ -3,77 +3,104 @@ version: '3.8' ## Latest version works with Docker Engine release 18.06.0+
 services:
   # Start - Cloud Infrastructure
   ## Start - Eureka Service Discovery definition
-  eureka:
-    build: eureka
-    environment:
-      - SPRING_PROFILES_ACTIVE=default
-      # config server credentials
-      - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
-      - CONFIG_SERVER_PWD=${CONFIG_SERVER_PWD}
-    depends_on:
-      - rabbitmq
-    restart: on-failure
-  ## End - Eureka Service Discovery definitio
-
-  apigateway:
-    build: api-gateway
-    environment:
-      - SPRING_PROFILES_ACTIVE=default
-      # config server credentials
-      - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
-      - CONFIG_SERVER_PWD=${CONFIG_SERVER_PWD}
-    depends_on:
-      - eureka
-      - postgres-db
-      - rabbitmq
-    restart: on-failure
-
-  ## Start - Recommendation service definition
-  auth:
-    build: auth-service
-    environment:
-      - SPRING_PROFILES_ACTIVE=default
-      # config server credentials
-      - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
-      - CONFIG_SERVER_PWD=${CONFIG_SERVER_PWD}
-    depends_on:
-      - eureka
-      - postgres-db
-      - rabbitmq
-    restart: on-failure
-  ## End - Recommendation service definition
-
-  customer:
-    build: customer-service
-    environment:
-      - SPRING_PROFILES_ACTIVE=default
-      # config server credentials
-      - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
-      - CONFIG_SERVER_PWD=${CONFIG_SERVER_PWD}
-    depends_on:
-      - eureka
-      - postgres-db
-      - rabbitmq
-    restart: on-failure
-
-  postgres-db:
-    image: postgres:11-alpine
-    ports:
-      - "15432:5432"
-    environment:
-      POSTGRES_DB: tcsg-duandautu
-      POSTGRES_USER: tcsgdbmananger
-      POSTGRES_PASSWORD: Un1t3ch@123!
-  ## Start - RabbitMQ Messaging service
-  rabbitmq:
-    image: rabbitmq:3-management
-    ports:
-      - 5672:5672
-      - 15672:15672
-    healthcheck:
-      test: ["CMD", "rabbitmqctl", "status"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-    restart: on-failure
+#  //
+#  eureka:
+#    build: eureka
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=default
+#      # config server credentials
+#      - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
+#      - CONFIG_SERVER_PWD=${CONFIG_SERVER_PWD}
+#    depends_on:
+#      - rabbitmq
+#    restart: on-failure
+#  ## End - Eureka Service Discovery definitio
+#
+#  apigateway:
+#    build: api-gateway
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=default
+#      # config server credentials
+#      - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
+#      - CONFIG_SERVER_PWD=${CONFIG_SERVER_PWD}
+#    depends_on:
+#      - eureka
+#      - postgres-db
+#      - rabbitmq
+#    restart: on-failure
+#
+#  ## Start - Recommendation service definition
+#  auth:
+#    build: auth-service
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=default
+#      # config server credentials
+#      - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
+#      - CONFIG_SERVER_PWD=${CONFIG_SERVER_PWD}
+#    depends_on:
+#      - eureka
+#      - postgres-db
+#      - rabbitmq
+#    restart: on-failure
+#  ## End - Recommendation service definition
+#
+#  customer:
+#    build: customer-service
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=default
+#      # config server credentials
+#      - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
+#      - CONFIG_SERVER_PWD=${CONFIG_SERVER_PWD}
+#    depends_on:
+#      - eureka
+#      - postgres-db
+#      - rabbitmq
+#    restart: on-failure
+#
+#  postgres-db:
+#    image: postgres:11-alpine
+#    ports:
+#      - "15432:5432"
+#    environment:
+#      POSTGRES_DB: tcsg-duandautu
+#      POSTGRES_USER: tcsgdbmananger
+#      POSTGRES_PASSWORD: Un1t3ch@123!
+#  ## Start - RabbitMQ Messaging service
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    ports:
+#      - 5672:5672
+#      - 15672:15672
+#    healthcheck:
+#      test: ["CMD", "rabbitmqctl", "status"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#    restart: on-failure
+#//
+#  eureka:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile-auth
+#      # config server credentials
+#    ports:
+#      - "9191:9191"
+#    networks:
+#      - qldt-app-tier
+#    links:
+#      - fluentd
+#    environment:
+#      FLUENTD_HOST: fluentd
+#      FLUENTD_PORT: 24224
+#      spring.datasource.url: jdbc:postgresql://192.168.2.133:15432/qldt13102023
+#      spring.datasource.password: Un1t3ch@123!
+#    depends_on:
+#      - fluentd
+#    logging:
+#      driver: fluentd
+#      options:
+#        fluentd-address: "localhost:24224"
+#        fluentd-async-connect: "true"
+#        tag: docker
+#    restart: on-failure
   ## End - RabbitMQ Messaging service
